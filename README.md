@@ -1,4 +1,3 @@
-# DotNetCoreWithRealm
 ![platform](https://img.shields.io/static/v1?label=Platform&message=.NET&color=563d7c) ![database](https://img.shields.io/static/v1?label=Database&message=Realm&color=8686d2) [![CodeQL](https://github.com/franksorro/DotNetCoreWithRealm/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/franksorro/DotNetCoreWithRealm/actions/workflows/codeql-analysis.yml) ![license](https://img.shields.io/static/v1?label=License&message=MIT&color=909090) [![contact](https://img.shields.io/static/v1?label=Contact&message=Twitter&color=00acee)](https://twitter.com/franksorro) [![contact](https://img.shields.io/static/v1?label=Contact&message=LinkedIn&color=0e76a8)](https://www.linkedin.com/in/franksorro)
 
 # .NET Core with Realm
