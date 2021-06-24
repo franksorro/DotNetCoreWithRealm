@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DotNetCoreWithRealm.Models;
-using DotNetCoreWithRealm.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using FS.Interfaces;
 
 namespace DotNetCoreWithRealm.Controllers
 {

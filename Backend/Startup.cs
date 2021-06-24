@@ -1,5 +1,5 @@
-using DotNetCoreWithRealm.Interfaces;
-using DotNetCoreWithRealm.Services;
+using FS.Interfaces;
+using FS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
