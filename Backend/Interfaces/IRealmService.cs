@@ -21,16 +21,9 @@ namespace DotNetCoreWithRealm.Interfaces
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
+        /// <param name="update"></param>
         /// <returns></returns>
         Task<bool> InsertOrUpdate<T>(T entity, bool update) where T : RealmObject;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Entities"></param>
-        /// <returns></returns>
-        Task<bool> InsertOrUpdate<T>(T entity) where T : RealmObject;
 
         /// <summary>
         /// 
@@ -40,13 +33,5 @@ namespace DotNetCoreWithRealm.Interfaces
         /// <param name="update"></param>
         /// <returns></returns>
         Task<bool> InsertOrUpdate<T>(IEnumerable<T> entities, bool update) where T : RealmObject;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        Task<bool> InsertOrUpdate<T>(IEnumerable<T> entities) where T : RealmObject;
     }
 }

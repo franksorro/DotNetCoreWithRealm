@@ -44,7 +44,7 @@ namespace DotNetCoreWithRealm.Controllers
                 Label = "Test"
             };
 
-            return Ok(await service.InsertOrUpdate(model));
+            return Ok(await service.InsertOrUpdate(model, false));
         }
     }
 }

@@ -25,12 +25,14 @@ namespace DotNetCoreWithRealm.Services
 
         private async Task<Realm> RealmAsync()
         {
-            Realm realm = await Realm.GetInstanceAsync(configuration);
-
-            if (realm == null)
-                throw new Exception("Realm datasource error");
-
-            return realm;
+            try
+            {
+                return await Realm.GetInstanceAsync(configuration);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -40,8 +42,16 @@ namespace DotNetCoreWithRealm.Services
         /// <returns></returns>
         public async Task<IEnumerable<T>> Select<T>() where T : RealmObject
         {
-            string json = JsonConvert.SerializeObject((await RealmAsync()).All<T>());
-            return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+            try
+            {
+                string json = JsonConvert.SerializeObject((await RealmAsync()).All<T>());
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -49,55 +59,21 @@ namespace DotNetCoreWithRealm.Services
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
+        /// <param name="update"></param>
         /// <returns></returns>
         public async Task<bool> InsertOrUpdate<T>(T entity, bool update) where T : RealmObject
         {
             try
             {
-                using (var transaction = (await RealmAsync()).BeginWrite())
-                {
-                    (await RealmAsync()).Add(entity, update);
-                    transaction.Commit();
-                }
+                Realm realm = await RealmAsync();
+                using Transaction transaction = realm.BeginWrite();
+                realm.Add(entity, update);
+                transaction.Commit();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task<bool> InsertOrUpdate<T>(T entity) where T : RealmObject
-        {
-            return await InsertOrUpdate(entity, false);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Entities"></param>
-        /// <returns></returns>
-        public async Task<bool> InsertOrUpdate<T>(IEnumerable<T> entities, bool update) where T : RealmObject
-        {
-            try
-            {
-                using (var transaction = (await RealmAsync()).BeginWrite())
-                {
-                    (await RealmAsync()).Add(entities, update);
-                    transaction.Commit();
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -106,10 +82,22 @@ namespace DotNetCoreWithRealm.Services
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entities"></param>
+        /// <param name="update"></param>
         /// <returns></returns>
-        public async Task<bool> InsertOrUpdate<T>(IEnumerable<T> entities) where T : RealmObject
+        public async Task<bool> InsertOrUpdate<T>(IEnumerable<T> entities, bool update) where T : RealmObject
         {
-            return await InsertOrUpdate(entities, false);
+            try
+            {
+                Realm realm = await RealmAsync();
+                using Transaction transaction = realm.BeginWrite();
+                realm.Add(entities, update);
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
